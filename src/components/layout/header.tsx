@@ -26,12 +26,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full glass-strong border-b border-white/40">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white shadow-md shadow-indigo-500/20 transition-transform group-hover:scale-110 group-hover:rotate-3 overflow-hidden">
-            <svg viewBox="0 0 36 36" className="h-5 w-5" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 8h10l4 5h10v16H6V8z" fill="white" fillOpacity="0.2" stroke="white" strokeWidth="2" strokeLinejoin="round"/>
-              <text x="18" y="23" textAnchor="middle" fill="white" fontSize="11" fontWeight="900" fontFamily="system-ui">CET</text>
-            </svg>
-          </div>
+          <img src="/logo.png" alt={APP_NAME} className="h-9 w-9 rounded-lg object-contain transition-transform group-hover:scale-110" />
           <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
         </Link>
 
