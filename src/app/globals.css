@@ -1,26 +1,221 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #0f172a;
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-soft: #eef2ff;
+  --accent: #f59e0b;
+  --success: #10b981;
+  --danger: #ef4444;
+  --border: rgba(226, 232, 240, 0.6);
+  --card: #ffffff;
+  --muted: #64748b;
+
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  --gradient-primary-soft: linear-gradient(135deg, #eef2ff 0%, #f3e8ff 50%, #fce7f3 100%);
+  --gradient-glow: radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+
+  --shadow-soft: 0 2px 10px rgba(15, 23, 42, 0.04), 0 8px 30px rgba(15, 23, 42, 0.04);
+  --shadow-elevated: 0 4px 12px rgba(15, 23, 42, 0.06), 0 16px 40px rgba(15, 23, 42, 0.08);
+  --shadow-glow: 0 0 0 1px rgba(99, 102, 241, 0.1), 0 8px 32px rgba(99, 102, 241, 0.15);
+}
+
+/* ============== 夜间模式 ============== */
+.dark {
+  --background: #0f172a;
+  --foreground: #e2e8f0;
+  --primary: #818cf8;
+  --primary-hover: #6366f1;
+  --primary-soft: #1e1b4b;
+  --accent: #fbbf24;
+  --success: #34d399;
+  --danger: #f87171;
+  --border: rgba(51, 65, 85, 0.6);
+  --card: #1e293b;
+  --muted: #94a3b8;
+
+  --gradient-primary: linear-gradient(135deg, #818cf8 0%, #a78bfa 50%, #f472b6 100%);
+  --gradient-primary-soft: linear-gradient(135deg, #1e1b4b 0%, #2e1065 50%, #4c0519 100%);
+  --gradient-glow: radial-gradient(circle at center, rgba(129, 140, 248, 0.15) 0%, transparent 70%);
+
+  --shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.3), 0 8px 30px rgba(0, 0, 0, 0.2);
+  --shadow-elevated: 0 4px 12px rgba(0, 0, 0, 0.4), 0 16px 40px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 0 1px rgba(129, 140, 248, 0.2), 0 8px 32px rgba(129, 140, 248, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============== 全屏背景：纯 CSS 渐变 ============== */
+.liquid-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 5%, rgba(99, 102, 241, 0.15), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 20%, rgba(236, 72, 153, 0.12), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 95%, rgba(139, 92, 246, 0.14), transparent 60%),
+    linear-gradient(180deg, #fbfbff 0%, #fafafa 50%, #fef9f4 100%);
+}
+
+.dark .liquid-bg {
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 5%, rgba(99, 102, 241, 0.08), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 20%, rgba(236, 72, 153, 0.06), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 95%, rgba(139, 92, 246, 0.07), transparent 60%),
+    linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+}
+
+.liquid-overlay-top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(180deg, rgba(250, 250, 250, 0.7) 0%, transparent 100%);
+  pointer-events: none;
+}
+.dark .liquid-overlay-top {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.7) 0%, transparent 100%);
+}
+
+.liquid-overlay-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 160px;
+  background: linear-gradient(0deg, rgba(254, 249, 244, 0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
+.dark .liquid-overlay-bottom {
+  background: linear-gradient(0deg, rgba(15, 23, 42, 0.6) 0%, transparent 100%);
+}
+
+/* ============== 毛玻璃 ============== */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-soft);
+}
+.dark .glass {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-elevated);
+}
+.dark .glass-strong {
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-soft);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.82);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-elevated);
+  transform: translateY(-3px);
+}
+.dark .glass-card:hover {
+  background: rgba(51, 65, 85, 0.95);
+}
+
+/* ============== 渐变文字 ============== */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ============== 动画 ============== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease-out both; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* ============== 滚动进入 ============== */
+.reveal {
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+}
+html.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.4s; }
+
+/* ============== 工具类 ============== */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+.btn-press {
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-fade-in,
+  .animate-fade-in-up { animation: none; }
+  .reveal { opacity: 1; transform: none; }
 }
