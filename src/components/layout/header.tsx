@@ -26,7 +26,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full glass-strong border-b border-white/40">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 group">
-          <img src="/logo.png" alt={APP_NAME} className="h-9 w-9 rounded-lg object-contain transition-transform group-hover:scale-110" />
+          <img src="/logo.webp" alt={APP_NAME} className="h-9 w-9 rounded-lg object-contain transition-transform group-hover:scale-110" />
           <span className="text-lg font-bold tracking-tight">{APP_NAME}</span>
         </Link>
 
